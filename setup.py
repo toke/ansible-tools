@@ -8,13 +8,13 @@ with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='ansible-tools',
-    version='0.0.7',
-    description='Keyring integration and local execution wrappers for Ansible',
+    name='ansible-tools-pass',
+    version='0.0.8',
+    description='Keyring integration and local execution wrappers for Ansible (PASS FORK)',
     long_description=long_description,
-    url='https://github.com/lvillani/ansible-tools',
-    author='Lorenzo Villani',
-    author_email='lorenzo@villani.me',
+    url='https://github.com/toke/ansible-tools',
+    author='Thomas Kerpe',
+    author_email='toke@toke.de',
     license='MIT',
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -24,7 +24,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: System :: Systems Administration',
     ],
-    keywords='ansible local keyring tools wrapper',
+    keywords='ansible local pass tools wrapper',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=['passlib'],
     entry_points={
