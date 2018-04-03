@@ -9,6 +9,8 @@ This is a set of wrappers around the `ansible`, `ansible-playbook` and
 `ansible-vault` commands which integrate with the system keyring to retrieve
 the vault password.
 
+THIS IS A FORK FOR USAGE WITH PASS.
+
 It should work on both Linux and OS X.
 
 

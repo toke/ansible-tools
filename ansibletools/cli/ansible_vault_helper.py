@@ -3,6 +3,7 @@
 # The MIT License (MIT)
 #
 # Copyright (c) 2015 Lorenzo Villani
+# Copyright (c) 2018 Thomas Kerpe
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,9 +31,9 @@ import argparse
 import getpass
 import os
 import os.path
+from subprocess import Popen, PIPE
 import sys
 
-import keyring
 
 
 CFG_OPTION = "name"
@@ -92,7 +93,8 @@ def set_secret(name, secret):
     with open(get_ansible_cfg_path(), "w") as fp:
         c.write(fp)
 
-    keyring.set_password(KEYRING_SERVICE, name, secret)
+    p1 = Popen(["pass", "add", name], stdout=PIPE, stdin=PIPE)
+    p1.communicate("%s\n%s\n" % (secret, secret))
 
 
 def load_ansible_cfg():
@@ -144,15 +146,16 @@ def fatal(*args):
 
 
 def get_secret(name):
-    """Obtains secret from the keyring."""
-    p = keyring.get_password(KEYRING_SERVICE, name)
+    """Obtains secret from the pass."""
+    p = Popen(["pass", name], stdout=PIPE)
+    p.wait()
 
     if not p:
-        howto = "Call %s --set to save a password inside the keyring." % name
+        howto = "Call pass add %s to save a password inside the pass." % name
 
         return ("", "Unable to find a password with name %s.\n\n%s" % (name, howto))
 
-    return (p, "")
+    return (next(p.stdout), "")
 
 
 if __name__ == "__main__":
