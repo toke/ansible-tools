@@ -150,12 +150,13 @@ def get_secret(name):
     p = Popen(["pass", name], stdout=PIPE)
     p.wait()
 
-    if not p:
+    try:
+        return (next(p.stdout), "")
+    except StopIteration:
         howto = "Call pass add %s to save a password inside the pass." % name
 
         return ("", "Unable to find a password with name %s.\n\n%s" % (name, howto))
 
-    return (next(p.stdout), "")
 
 
 if __name__ == "__main__":
