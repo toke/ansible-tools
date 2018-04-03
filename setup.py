@@ -26,7 +26,7 @@ setup(
     ],
     keywords='ansible local keyring tools wrapper',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    install_requires=['keyring', 'passlib'],
+    install_requires=['passlib'],
     entry_points={
         'console_scripts': [
             'ansible-local=ansibletools.cli.ansible_local:main',
